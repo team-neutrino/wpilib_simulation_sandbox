@@ -32,6 +32,7 @@ public class Robot extends TimedRobot
     private final Timer m_timer = new Timer();
     private Trajectory m_trajectory;
 
+    //*****************************************************************************************************************/
     @Override
     public void robotInit()
     {
@@ -43,12 +44,14 @@ public class Robot extends TimedRobot
             new Pose2d(6, 4, new Rotation2d()), new TrajectoryConfig(2, 2));
     }
 
+    //*****************************************************************************************************************/
     @Override
     public void robotPeriodic()
     {
         m_drive.periodic();
     }
 
+    //*****************************************************************************************************************/
     @Override
     public void autonomousInit()
     {
@@ -57,6 +60,7 @@ public class Robot extends TimedRobot
         m_drive.resetOdometry(m_trajectory.getInitialPose());
     }
 
+    //*****************************************************************************************************************/
     @Override
     public void autonomousPeriodic()
     {
@@ -66,6 +70,7 @@ public class Robot extends TimedRobot
         m_drive.drive(speeds.vxMetersPerSecond, speeds.omegaRadiansPerSecond);
     }
 
+    //*****************************************************************************************************************/
     @Override
     @SuppressWarnings("LocalVariableName")
     public void teleopPeriodic()
@@ -82,6 +87,7 @@ public class Robot extends TimedRobot
         m_drive.drive(xSpeed, rot);
     }
 
+    //*****************************************************************************************************************/
     @Override
     public void simulationPeriodic()
     {

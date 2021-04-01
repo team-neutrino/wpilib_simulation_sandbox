@@ -71,6 +71,8 @@ public class Drivetrain
     private final DifferentialDrivetrainSim m_drivetrainSimulator = new DifferentialDrivetrainSim(m_drivetrainSystem,
         DCMotor.getCIM(2), 8, kTrackWidth, kWheelRadius, null);
 
+    //*****************************************************************************************************************/
+    // Constructor
     public Drivetrain()
     {
         // Set the distance per pulse for the drive encoders. We can simply use the
@@ -86,6 +88,7 @@ public class Drivetrain
         SmartDashboard.putData("Field", m_fieldSim);
     }
 
+    //*****************************************************************************************************************/
     public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
     {
         var leftFeedforward = m_feedforward.calculate(speeds.leftMetersPerSecond);
@@ -97,16 +100,19 @@ public class Drivetrain
         m_rightGroup.setVoltage(rightOutput + rightFeedforward);
     }
 
+    //*****************************************************************************************************************/
     public void drive(double xSpeed, double rot)
     {
         setSpeeds(m_kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot)));
     }
 
+    //*****************************************************************************************************************/
     public void updateOdometry()
     {
         m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
     }
 
+    //*****************************************************************************************************************/
     public void resetOdometry(Pose2d pose)
     {
         m_leftEncoder.reset();
@@ -115,11 +121,13 @@ public class Drivetrain
         m_odometry.resetPosition(pose, m_gyro.getRotation2d());
     }
 
+    //*****************************************************************************************************************/
     public Pose2d getPose()
     {
         return m_odometry.getPoseMeters();
     }
 
+    //*****************************************************************************************************************/
     public void simulationPeriodic()
     {
         // To update our simulation, we set motor voltage inputs, update the
@@ -137,6 +145,7 @@ public class Drivetrain
         m_gyroSim.setAngle(-m_drivetrainSimulator.getHeading().getDegrees());
     }
 
+    //*****************************************************************************************************************/
     public void periodic()
     {
         updateOdometry();
